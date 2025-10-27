@@ -7,18 +7,29 @@
 #include <set>
 #include <vector>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 using namespace std::chrono;
 
-// readingRace() reads data from a file to a set, list, and vector and outputs how long it took to read data to each.
-// arguments:
-// returns:
+const int WIDTH = 5;
+
+// readingRace() reads data from a file to a set, std::list, and vector and outputs how long it took to read data to each.
+// arguments: an empty set of type string, an empty std::list of type string, an empty vector of type string
+// returns: nothing
 void readingRace(set<string>&, list<string>&, vector<string>&);
+
+// sortingRace() sorts data in a std::list and vector and outputs how long it took to perform the sort. Because sets are
+//      already sorted, -1 is output as the duration value for sorting the set.
+// arguments: a std::list of strings and a vector of strings
+// returns: nothing
+void sortingRace(list<string>&, vector<string>&);
 
 int main() {
     set<string> set;
     list<string> list;
     vector<string> vector;
+
+    cout << setw(WIDTH) <<  "Operation \t Vector \t List \t Set" << endl;
 
     // RACE 1: READING
     readingRace(set, list, vector);
@@ -49,7 +60,7 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
         set.insert(temp);
     }
     auto end = chrono::high_resolution_clock::now();
-    auto setDuration = duration_cast<milliseconds>(end - start);
+    auto setDuration = duration_cast<microseconds>(end - start);
 
     // Resetting to start of file
     infile.clear();
@@ -61,7 +72,7 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
         list.push_back(temp);
     }
     end = chrono::high_resolution_clock::now();
-    auto listDuration = duration_cast<milliseconds>(end - start);
+    auto listDuration = duration_cast<microseconds>(end - start);
 
     // Resetting to start of file
     infile.clear();
@@ -73,10 +84,15 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
         vector.push_back(temp);
     }
     end = chrono::high_resolution_clock::now();
-    auto vectorDuration = duration_cast<milliseconds>(end - start);
+    auto vectorDuration = duration_cast<microseconds>(end - start);
 
     infile.close();
 
     // Outputting results
-    cout << "Read \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
+    cout << setw(WIDTH) << "Read \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
+}
+
+void sortingRace(list<string> &, vector<string> &) {
+    // Outputting results
+    cout << setw(WIDTH) << "Read \t" << vectorDuration.count() << '\t' << listDuration.count() << "\t -1" << endl;
 }
