@@ -147,7 +147,7 @@ void insertingRace(set<string> &set, list<string> &list, vector<string> &vector)
     start = high_resolution_clock::now();
     middle = set.size() / 2;
     auto it2 = vector.begin();
-    for (int i = 0; i < middle; i++) {
+    for (int i = 0; i < middle; i++) { // Incrementing iterator until it's at the middle of the vector
         ++it2;
     }
     vector.insert(it2, "TESTCODE");
@@ -159,5 +159,35 @@ void insertingRace(set<string> &set, list<string> &list, vector<string> &vector)
 }
 
 void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) {
+    // Deleting middle element in set
+    auto start = high_resolution_clock::now();
+    int middle = set.size() / 2;
+    auto it = set.begin();
+    for (int i = 0; i < middle; i++) { // Incrementing iterator until it's at the middle of the set
+        ++it;
+    }
+    set.erase(it);
+    auto end = high_resolution_clock::now();
+    auto setDuration = duration_cast<microseconds>(end - start);
 
+    // Deleting middle element in list
+    start = high_resolution_clock::now();
+    middle = list.size() / 2;
+    auto it2 = list.begin();
+    for (int i = 0; i < middle; i++) { // Incrementing iterator until it's at the middle of the list
+        ++it2;
+    }
+    list.erase(it2);
+    end = high_resolution_clock::now();
+    auto listDuration = duration_cast<microseconds>(end - start);
+
+    // Deleting middle element in vector
+    start = high_resolution_clock::now();
+
+
+    end = high_resolution_clock::now();
+    auto vectorDuration = duration_cast<microseconds>(end - start);
+
+    // Outputting results
+    cout << setw(WIDTH) << "Insert \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
 }
