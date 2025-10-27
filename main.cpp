@@ -145,12 +145,8 @@ void insertingRace(set<string> &set, list<string> &list, vector<string> &vector)
 
     // Inserting in middle of vector
     start = high_resolution_clock::now();
-    middle = set.size() / 2;
-    auto it2 = vector.begin();
-    for (int i = 0; i < middle; i++) { // Incrementing iterator until it's at the middle of the vector
-        ++it2;
-    }
-    vector.insert(it2, "TESTCODE");
+    middle = vector.size() / 2;
+    vector.insert((vector.begin()+ middle), "TESTCODE");
     end = high_resolution_clock::now();
     auto vectorDuration = duration_cast<microseconds>(end - start);
 
