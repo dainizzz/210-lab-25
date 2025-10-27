@@ -1,6 +1,7 @@
 // COMSC-210 | Lab 25 | Dainiz Almazan
 // IDE used: CLion
 
+#include <algorithm>
 #include <iostream>
 #include <chrono>
 #include <list>
@@ -24,6 +25,12 @@ void readingRace(set<string>&, list<string>&, vector<string>&);
 // returns: nothing
 void sortingRace(list<string>&, vector<string>&);
 
+// insertingRace() inserts the value "TESTCODE" into the middle of the std::list and vector and into the set, and outputs
+//      how long it took to perform the operations.
+// arguments: a set of strings, a std::list of strings, a vector of strings
+// returns: nothing
+void insertingRace(set<string>&, list<string>&, vector<string>&);
+
 int main() {
     set<string> set;
     list<string> list;
@@ -35,6 +42,7 @@ int main() {
     readingRace(set, list, vector);
 
     // RACE 2: SORTING
+    sortingRace(list, vector);
 
     // RACE 3: INSERTING
 
@@ -92,7 +100,19 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
     cout << setw(WIDTH) << "Read \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
 }
 
-void sortingRace(list<string> &, vector<string> &) {
+void sortingRace(list<string> &list, vector<string> &vector) {
+    // Sorting list
+    auto start = chrono::high_resolution_clock::now();
+    list.sort();
+    auto end = chrono::high_resolution_clock::now();
+    auto listDuration = duration_cast<microseconds>(end - start);
+
+    // Sorting vector
+    start = chrono::high_resolution_clock::now();
+    sort(vector.begin(), vector.end());
+    end = chrono::high_resolution_clock::now();
+    auto vectorDuration = duration_cast<microseconds>(end - start);
+
     // Outputting results
-    cout << setw(WIDTH) << "Read \t" << vectorDuration.count() << '\t' << listDuration.count() << "\t -1" << endl;
+    cout << setw(WIDTH) << "Sort \t" << vectorDuration.count() << '\t' << listDuration.count() << "\t -1" << endl;
 }
