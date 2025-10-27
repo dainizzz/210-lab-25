@@ -1,3 +1,6 @@
+// COMSC-210 | Lab 25 | Dainiz Almazan
+// IDE used: CLion
+
 #include <iostream>
 #include <chrono>
 using namespace std;
