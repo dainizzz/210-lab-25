@@ -183,8 +183,8 @@ void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) 
 
     // Deleting middle element in vector
     start = high_resolution_clock::now();
-
-
+    middle = vector.size() / 2;
+    vector.erase(vector.begin()+ middle);
     end = high_resolution_clock::now();
     auto vectorDuration = duration_cast<microseconds>(end - start);
 
