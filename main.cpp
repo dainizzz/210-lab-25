@@ -157,7 +157,7 @@ void insertingRace(set<string> &set, list<string> &list, vector<string> &vector)
 void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) {
 	// Deleting middle element in set
 	auto start = high_resolution_clock::now();
-	int middle = set.size() / 2;
+	int middle = (set.size() / 2) - 1;
 	auto it = set.begin();
 	advance(it, middle);
 	set.erase(it);
@@ -166,7 +166,7 @@ void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) 
 
 	// Deleting middle element in list
 	start = high_resolution_clock::now();
-	middle = list.size() / 2;
+	middle = (list.size() / 2) - 1;
 	auto it2 = list.begin();
 	advance(it2, middle);
 	list.erase(it2);
@@ -175,7 +175,7 @@ void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) 
 
 	// Deleting middle element in vector
 	start = high_resolution_clock::now();
-	middle = vector.size() / 2;
+	middle = (vector.size() / 2) - 1;
 	vector.erase(vector.begin() + middle);
 	end = high_resolution_clock::now();
 	auto vectorDuration = duration_cast<microseconds>(end - start);
