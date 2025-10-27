@@ -25,11 +25,17 @@ void readingRace(set<string>&, list<string>&, vector<string>&);
 // returns: nothing
 void sortingRace(list<string>&, vector<string>&);
 
-// insertingRace() inserts the value "TESTCODE" into the middle of the std::list and vector and into the set, and outputs
+// insertingRace() inserts the value "TESTCODE" into the middle of a std::list and vector and into a set, and outputs
 //      how long it took to perform the operations.
 // arguments: a set of strings, a std::list of strings, a vector of strings
 // returns: nothing
 void insertingRace(set<string>&, list<string>&, vector<string>&);
+
+// deletingRace() deletes the value in the middle of a set, std::list, and vector and outputs how long it took to
+//      perform the operations.
+// arguments: a set of strings, a std::list of strings, a vector of strings
+// returns: nothing
+void deletingRace(set<string>&, list<string>&, vector<string>&);
 
 int main() {
     set<string> set;
@@ -45,8 +51,10 @@ int main() {
     sortingRace(list, vector);
 
     // RACE 3: INSERTING
+    insertingRace(set, list, vector);
 
     // RACE 4: DELETING
+    deletingRace(set, list, vector);
 
     return 0;
 }
@@ -63,11 +71,11 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
     string temp;
 
     // Reading to set
-    auto start = chrono::high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
     while (infile >> temp) {
         set.insert(temp);
     }
-    auto end = chrono::high_resolution_clock::now();
+    auto end = high_resolution_clock::now();
     auto setDuration = duration_cast<microseconds>(end - start);
 
     // Resetting to start of file
@@ -102,15 +110,15 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
 
 void sortingRace(list<string> &list, vector<string> &vector) {
     // Sorting list
-    auto start = chrono::high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
     list.sort();
-    auto end = chrono::high_resolution_clock::now();
+    auto end = high_resolution_clock::now();
     auto listDuration = duration_cast<microseconds>(end - start);
 
     // Sorting vector
-    start = chrono::high_resolution_clock::now();
+    start = high_resolution_clock::now();
     sort(vector.begin(), vector.end());
-    end = chrono::high_resolution_clock::now();
+    end = high_resolution_clock::now();
     auto vectorDuration = duration_cast<microseconds>(end - start);
 
     // Outputting results
@@ -119,16 +127,16 @@ void sortingRace(list<string> &list, vector<string> &vector) {
 
 void insertingRace(set<string> &set, list<string> &list, vector<string> &vector) {
     // Inserting in set
-    auto start = chrono::high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
     set.insert("TESTCODE");
-    auto end = chrono::high_resolution_clock::now();
+    auto end = high_resolution_clock::now();
     auto setDuration = duration_cast<microseconds>(end - start);
 
     // Inserting in middle of list
     start = high_resolution_clock::now();
     int middle = list.size() / 2;
     auto it = list.begin();
-    for (int i = 0; i < middle; i++) {
+    for (int i = 0; i < middle; i++) { // Incrementing iterator until it's at the middle of the list
         ++it;
     }
     list.insert(it, "TESTCODE");
@@ -137,10 +145,19 @@ void insertingRace(set<string> &set, list<string> &list, vector<string> &vector)
 
     // Inserting in middle of vector
     start = high_resolution_clock::now();
-
+    middle = set.size() / 2;
+    auto it2 = vector.begin();
+    for (int i = 0; i < middle; i++) {
+        ++it2;
+    }
+    vector.insert(it2, "TESTCODE");
     end = high_resolution_clock::now();
     auto vectorDuration = duration_cast<microseconds>(end - start);
 
     // Outputting results
     cout << setw(WIDTH) << "Insert \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
+}
+
+void deletingRace(set<string> &set, list<string> &list, vector<string> &vector) {
+
 }
