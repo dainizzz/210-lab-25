@@ -75,11 +75,11 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
     infile.seekg(0, ios::beg);
 
     // Reading to list
-    start = chrono::high_resolution_clock::now();
+    start = high_resolution_clock::now();
     while (infile >> temp) {
         list.push_back(temp);
     }
-    end = chrono::high_resolution_clock::now();
+    end = high_resolution_clock::now();
     auto listDuration = duration_cast<microseconds>(end - start);
 
     // Resetting to start of file
@@ -87,11 +87,11 @@ void readingRace(set<string> & set, list<string> & list, vector<string> &vector)
     infile.seekg(0, ios::beg);
 
     // Reading to vector
-    start = chrono::high_resolution_clock::now();
+    start = high_resolution_clock::now();
     while (infile >> temp) {
         vector.push_back(temp);
     }
-    end = chrono::high_resolution_clock::now();
+    end = high_resolution_clock::now();
     auto vectorDuration = duration_cast<microseconds>(end - start);
 
     infile.close();
@@ -115,4 +115,32 @@ void sortingRace(list<string> &list, vector<string> &vector) {
 
     // Outputting results
     cout << setw(WIDTH) << "Sort \t" << vectorDuration.count() << '\t' << listDuration.count() << "\t -1" << endl;
+}
+
+void insertingRace(set<string> &set, list<string> &list, vector<string> &vector) {
+    // Inserting in set
+    auto start = chrono::high_resolution_clock::now();
+    set.insert("TESTCODE");
+    auto end = chrono::high_resolution_clock::now();
+    auto setDuration = duration_cast<microseconds>(end - start);
+
+    // Inserting in middle of list
+    start = high_resolution_clock::now();
+    int middle = list.size() / 2;
+    auto it = list.begin();
+    for (int i = 0; i < middle; i++) {
+        ++it;
+    }
+    list.insert(it, "TESTCODE");
+    end = high_resolution_clock::now();
+    auto listDuration = duration_cast<microseconds>(end - start);
+
+    // Inserting in middle of vector
+    start = high_resolution_clock::now();
+
+    end = high_resolution_clock::now();
+    auto vectorDuration = duration_cast<microseconds>(end - start);
+
+    // Outputting results
+    cout << setw(WIDTH) << "Insert \t" << vectorDuration.count() << '\t' << listDuration.count() << '\t' << setDuration.count() << endl;
 }
