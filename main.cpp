@@ -6,8 +6,9 @@
 #include <list>
 #include <set>
 #include <vector>
-#include <iostream>
+#include <fstream>
 using namespace std;
+using namespace std::chrono;
 //TODO: Come up w/ better variable names
 void readingRace(set<string>&, list<string>&, vector<string>&);
 
@@ -36,4 +37,20 @@ duration.count() references elapsed milliseconds
 */
 void readingRace(set<string> & set, list<string> & list, vector<string> &vector) {
     ifstream infile("codes.txt");
+    string temp;
+
+    // Reading to set
+    auto start = chrono::high_resolution_clock::now();
+    while (infile >> temp) {
+        set.insert(temp);
+    }
+    auto end = chrono::high_resolution_clock::now();
+
+    auto setDuration = duration_cast<milliseconds>(end - start);
+
+    // Reading to list
+
+    // Reading to vector
+
+    infile.close();
 }
